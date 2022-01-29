@@ -1919,7 +1919,7 @@ impl Tab {
                 .send_to_plugin(PluginInstruction::Update(
                     None,
                     None,
-                    Event::CopyToClipboard,
+                    Event::CopyToClipboard(self.clipboard_provider.as_copy_destination()),
                 ))
                 .unwrap();
         }
@@ -1939,7 +1939,7 @@ impl Tab {
                     self.senders
                         .send_to_server(ServerInstruction::Render(Some(output)))
                         .unwrap();
-                    Event::CopyToClipboard
+                    Event::CopyToClipboard(self.clipboard_provider.as_copy_destination())
                 }
                 Err(err) => {
                     log::error!("could not write selection to clipboard: {}", err);
